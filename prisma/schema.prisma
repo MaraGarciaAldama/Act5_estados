@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model State{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  cities City[]
+
+}
+
+model City{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50) 
+  state State @relation(fields: [stateId], references: [id])
+  stateId Int
+  locations Location[]
+}
+
+model Location{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  city City @relation(fields: [cityId], references: [id]) 
+  cityId Int
+  address Address[]
+}
+
+model Address{
+   id Int @id @default(autoincrement())
+   street String @db.VarChar(164)
+   outDoor String @db.VarChar(24)
+   inteDoor String? @db.VarChar(10)
+   cp String @db.VarChar(7)
+   location Location @relation(fields: [locationId], references: [id])
+   locationId Int
+   custumer Custumer[]
+}
+
+model Custumer{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  lastname String @db.VarChar(100)
+  rfc String @db.VarChar(15)
+  address Address @relation(fields: [addressId], references: [id])
+  addressId Int
+  email String @db.VarChar(128)
+  phone String @db.VarChar(15)
+  active Boolean @default(true)
+}
