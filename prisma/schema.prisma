@@ -15,7 +15,7 @@ datasource db {
 
 model State{
   id Int @id @default(autoincrement())
-  name String @db.VarChar(50)
+  name String @db.VarChar(50) @unique
   cities City[]
 
 }
@@ -26,6 +26,7 @@ model City{
   state State @relation(fields: [stateId], references: [id])
   stateId Int
   locations Location[]
+  @@unique([name, stateId])
 }
 
 model Location{
@@ -58,3 +59,4 @@ model Custumer{
   phone String @db.VarChar(15)
   active Boolean @default(true)
 }
+
