@@ -7,8 +7,11 @@ import { LocationsModule } from './locations/locations.module';
 
 
 @Module({
-  imports: [StateModule, CityModule, LocationsModule],
+  imports: [StateModule,
+    CityModule,
+    LocationsModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

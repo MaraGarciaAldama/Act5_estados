@@ -1,4 +1,4 @@
 export class CreateLocationDto {
-    nombre: string;
+    name: string;
     cityId: number;
 }
