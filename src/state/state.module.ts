@@ -4,7 +4,7 @@ import { StateController } from './state.controller';
 import {PrismaService } from 'src/prisma.service';
 
 @Module({
-  providers: [StateService],
-  controllers: [StateController, PrismaService]
+  providers: [StateService, PrismaService],
+  controllers: [StateController]
 })
 export class StateModule {}
