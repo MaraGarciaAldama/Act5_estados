@@ -5,13 +5,15 @@ import { StateModule } from './state/state.module';
 import { CityModule } from './city/city.module';
 import { LocationsModule } from './locations/locations.module';
 import { AddressModule } from './address/address.module';
+import { CustumerModule } from './custumer/custumer.module';
 
 
 @Module({
   imports: [StateModule,
     CityModule,
     LocationsModule,
-    AddressModule
+    AddressModule,
+    CustumerModule
   ],
   controllers: [AppController],
   providers: [AppService],
