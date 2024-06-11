@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { State, Prisma } from '@prisma/client';
 
@@ -26,31 +26,31 @@ export class StateService {
       throw new BadRequestException('State already exists');
     }
 
-    return this.prisma.state.create({
+    return await this.prisma.state.create({
       data,
     });
   }
 
   async getStates(): Promise<State[]> {
-    return this.prisma.state.findMany();
+    return await this.prisma.state.findMany();
   }
 
   async getStateById(id: number): Promise<State> {
-    return this.prisma.state.findUnique({
+    return await this.prisma.state.findUnique({
       where: { id },
       include: { cities: true },
     });
   }
 
   async updateState(id: number, data: Prisma.StateUpdateInput): Promise<State> {
-    return this.prisma.state.update({
+    return await this.prisma.state.update({
       where: { id },
       data,
     });
   }
 
   async deleteState(id: number): Promise<State> {
-    return this.prisma.state.delete({
+    return await this.prisma.state.delete({
       where: { id },
     });
   }

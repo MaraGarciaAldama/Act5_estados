@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
 import { CityService } from './city.service';
-import { City } from '@prisma/client';
+import { City, Location } from '@prisma/client';
 import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
 
@@ -36,9 +36,8 @@ export class CityController {
     return this.cityService.deleteCity(+id);
   }
 
-  @Get(':id/locations')
-  async getLocations(@Param('id') id: string): Promise<Location[]> {
-    const city = await this.cityService.getCityById(+id);
-    return city.locations;
+  @Get(':id')
+  async getLocations(@Param('id', ParseIntPipe) id: number): Promise<City> {
+  return await this.cityService.getCityById(id);
   }
 }
